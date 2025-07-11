@@ -446,7 +446,7 @@
       output.scrollTop = output.scrollHeight;
     }
 
-    function appendTypedText(text, icon = null, delay = 15, isError = false, skillData = null) {
+    function appendTypedText(text, icon = null, delay = 15, isError = false,isKen=false, skillData = null) {
       const line = document.createElement("div");
       line.className = "flex items-start gap-2";
 
@@ -458,7 +458,10 @@
       }
 
       const span = document.createElement("span");
-      span.className = isError ? "text-red-500" : "text-[#00ff00] font-mono whitespace-pre-wrap";
+      span.className = `font-mono whitespace-pre-wrap ${
+          isError ? "text-red-500" : isKen ? "text-white-600" : "text-[#00ff00]"
+        }`;
+
       line.appendChild(span);
       output.appendChild(line);
 
@@ -497,7 +500,7 @@
 
       if (cmd.toLowerCase().startsWith("ken ")) {
         const query = cmd.slice(4).trim();
-        appendTypedText("Wait For Ken (Gemini AI) Response...", null, 10);
+        appendTypedText("Wait For Ken (Gemini AI) Response...", null, 10,false,true);
 
         fetch("/ask-gemini", {
           method: "POST",
@@ -506,7 +509,7 @@
         })
           .then(res => res.json())
           .then(data => appendTypedText(data.reply, null, 15))
-          .catch(() => appendTypedText("Failed to reach Ken (Gemini AI).", null, 15, true));
+          .catch(() => appendTypedText("Failed to reach Ken (Gemini AI).", null, 5,false,true ));
         return;
       }
 
