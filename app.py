@@ -19,7 +19,7 @@ def ask_gemini():
     prompt = data.get('prompt', '')
     try:
         model = genai.GenerativeModel('gemini-2.5-flash')
-        response = model.generate_content(prompt)
+        response = model.generate_content(prompt+"and also give response in 3 to 5 lines only according to needed and remove all the unneccessary symbols like *,#,$ in response")
         return jsonify({ 'reply': response.text })
     except Exception as e:
         print(e)
