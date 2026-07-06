@@ -14,8 +14,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Tailwind (no-build CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind = { config: {
+    tailwind.config = {
       theme: {
         extend: {
           colors: {
@@ -28,9 +29,8 @@
           },
         }
       }
-    } };
+    };
   </script>
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     html { scroll-behavior: smooth; }
@@ -93,6 +93,25 @@
 
 <body class="font-sans text-slate-300 antialiased overflow-x-hidden bg-ink">
 
+  <!-- SPLASH SCREEN -->
+  <div id="splash" class="dotted-grid fixed inset-0 z-[1000] bg-ink flex flex-col items-center justify-center gap-7 transition-opacity duration-500">
+    <div class="pointer-events-none absolute -top-32 -left-24 w-[420px] h-[420px] rounded-full bg-violet-600/20 blur-[110px]"></div>
+    <div class="pointer-events-none absolute bottom-0 right-0 w-80 h-80 rounded-full bg-fuchsia-500/10 blur-[110px]"></div>
+
+    <div class="relative w-20 h-20 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center">
+      <i class="devicon-python-plain colored text-5xl animate-pulse"></i>
+      <span class="absolute inset-0 rounded-3xl border-2 border-violet-500/40 animate-ping"></span>
+    </div>
+
+    <div class="font-mono text-[13px] sm:text-sm text-emerald-400 h-5" id="splashLine">&nbsp;</div>
+
+    <div class="w-56 sm:w-64 h-1.5 rounded-full bg-white/10 overflow-hidden">
+      <div id="splashBar" class="h-full w-0 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-400"></div>
+    </div>
+
+    <div class="font-mono text-[11px] tracking-[0.2em] uppercase text-slate-600">himanshu<span class="text-violet-500">.dev</span></div>
+  </div>
+
   <!-- SCROLL PROGRESS -->
   <div id="prog" class="fixed top-0 left-0 h-[3px] w-0 z-[300] bg-gradient-to-r from-violet-500 to-fuchsia-400 shadow-[0_0_10px_rgba(124,58,237,0.6)] transition-[width] duration-75"></div>
 
@@ -134,23 +153,23 @@
     <span class="pointer-events-none select-none hidden lg:block absolute top-1/2 -right-6 -translate-y-1/2 rotate-90 origin-center text-[120px] font-black tracking-widest text-white/[0.04] whitespace-nowrap">SWAMI</span>
 
     <div class="max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12 w-full relative z-10">
-      <p class="reveal show text-violet-400 font-mono text-sm mb-4">Hi <span class="inline-block">👋</span>, I'm</p>
+      <p class="reveal text-violet-400 font-mono text-sm mb-4">Hi <span class="inline-block">👋</span>, I'm</p>
 
-      <h1 class="reveal show text-[44px] sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-5 leading-[1.05]">
+      <h1 class="reveal text-[44px] sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-5 leading-[1.05]">
         <span class="border-b-4 border-violet-500">Himanshu</span> Swami
       </h1>
 
-      <p class="reveal show font-mono text-lg sm:text-xl text-slate-400 mb-8 min-h-[32px]">
+      <p class="reveal font-mono text-lg sm:text-xl text-slate-400 mb-8 min-h-[32px]">
         <span id="tw"></span><span class="cursor-blink inline-block w-[2px] h-[1em] bg-violet-400 align-middle ml-0.5"></span>
       </p>
 
-      <p class="reveal show text-[15px] text-slate-400 leading-[1.8] max-w-xl mb-9">
+      <p class="reveal text-[15px] text-slate-400 leading-[1.8] max-w-xl mb-9">
         I build backend systems and full-stack products that scale — from <b class="text-white font-semibold">real-time GPS tracking APIs</b> for
         transport operators to <b class="text-white font-semibold">fintech admin platforms</b> used by thousands daily.
         Currently at <b class="text-white font-semibold">Findoc</b>, shipping features that matter.
       </p>
 
-      <div class="reveal show flex items-center gap-5 mb-12 text-lg text-slate-400">
+      <div class="reveal flex items-center gap-5 mb-12 text-lg text-slate-400">
         <a href="mailto:Himanshuswami2810@gmail.com" class="hover:text-violet-400 transition" title="Email"><i class="fa-solid fa-envelope"></i></a>
         <span class="w-px h-4 bg-white/10"></span>
         <a href="https://www.linkedin.com/in/himanshu-swami-02ab7729b" target="_blank" rel="noopener noreferrer" class="hover:text-violet-400 transition" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -160,7 +179,7 @@
         <a href="tel:9718751020" class="hover:text-violet-400 transition" title="Phone"><i class="fa-solid fa-phone"></i></a>
       </div>
 
-      <div class="reveal show flex flex-wrap gap-3 mb-12">
+      <div class="reveal flex flex-wrap gap-3 mb-12">
         <a href="#projects" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold px-6 py-3 rounded-full transition">
           View My Work <i class="fa-solid fa-arrow-right text-xs"></i>
         </a>
@@ -169,7 +188,7 @@
         </a>
       </div>
 
-      <div class="reveal show grid grid-cols-2 sm:grid-cols-4 max-w-xl rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden divide-x divide-y sm:divide-y-0 divide-white/10">
+      <div class="reveal grid grid-cols-2 sm:grid-cols-4 max-w-xl rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden divide-x divide-y sm:divide-y-0 divide-white/10">
         <div class="flex flex-col items-center gap-0.5 text-center py-5 px-3"><span class="font-mono text-2xl font-bold text-white">2<i class="text-violet-400 not-italic">+</i></span><span class="text-[10px] uppercase tracking-wider text-slate-500">Years Exp</span></div>
         <div class="flex flex-col items-center gap-0.5 text-center py-5 px-3"><span class="font-mono text-2xl font-bold text-white">15<i class="text-violet-400 not-italic">+</i></span><span class="text-[10px] uppercase tracking-wider text-slate-500">Projects</span></div>
         <div class="flex flex-col items-center gap-0.5 text-center py-5 px-3"><span class="font-mono text-2xl font-bold text-white">3</span><span class="text-[10px] uppercase tracking-wider text-slate-500">Companies</span></div>
@@ -504,6 +523,38 @@
     }
 
     $(function () {
+      // ── SPLASH SCREEN (Python / coding-vibe boot sequence) ─────────────────────
+      const $splash = $('#splash'), $splashLine = $('#splashLine'), $splashBar = $('#splashBar');
+      $('html, body').css('overflow', 'hidden');
+
+      const bootLines = ['>>> import himanshu', '>>> from stack import python, java', 'Booting portfolio... done'];
+      let bl = 0, bc = 0;
+      function typeBootLine() {
+        const line = bootLines[bl];
+        if (bc <= line.length) {
+          $splashLine.text(line.slice(0, bc) + (bc < line.length ? '█' : ''));
+          bc++;
+          setTimeout(typeBootLine, 24);
+        } else if (bl < bootLines.length - 1) {
+          bl++; bc = 0;
+          setTimeout(typeBootLine, 240);
+        }
+      }
+      typeBootLine();
+      requestAnimationFrame(() => $splashBar.css({ transition: 'width 2.2s cubic-bezier(.4,0,.2,1)', width: '100%' }));
+
+      let splashDone = false;
+      function hideSplash() {
+        if (splashDone) return;
+        splashDone = true;
+        $splash.css('opacity', '0');
+        $('html, body').css('overflow', '');
+        $('#hero .reveal').addClass('show');
+        setTimeout(() => $splash.remove(), 550);
+      }
+      setTimeout(hideSplash, 2500);
+      $splash.on('click', hideSplash);
+
       // ── MARQUEE ────────────────────────────────────────────────────────────────
       const row1 = MARQUEE_1.join(' &nbsp;•&nbsp; ') + ' &nbsp;•&nbsp; ';
       const row2 = MARQUEE_2.join(' &nbsp;•&nbsp; ') + ' &nbsp;•&nbsp; ';
@@ -805,7 +856,6 @@
         entries.forEach(e => { if (e.isIntersecting) $(e.target).addClass('show'); });
       }, { threshold: 0.08 });
       $('.reveal').each(function () { rio.observe(this); });
-      $('#hero .reveal').addClass('show');
 
       // ── TYPEWRITER (role) ──────────────────────────────────────────────────────
       const roles = ['A pragmatic Backend Developer', 'A Python Backend Engineer', 'A Java Spring Boot Developer', 'A Django Backend Dev', 'A Full-Stack Builder', 'SDE II @ Findoc'];
