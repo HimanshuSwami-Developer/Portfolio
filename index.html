@@ -271,7 +271,7 @@
       <div id="pf" class="reveal flex flex-wrap justify-center gap-2 mb-10"></div>
     </div>
     <div class="reveal relative">
-      <div id="pg" class="no-scrollbar flex gap-6 overflow-x-auto snap-x snap-mandatory px-4 sm:px-8 lg:px-12 pb-4"></div>
+      <div id="pg" class="no-scrollbar flex gap-6 overflow-x-auto snap-x snap-mandatory px-4 sm:px-8 lg:px-12 scroll-px-4 sm:scroll-px-8 lg:scroll-px-12 pt-2 pb-4"></div>
       <button id="pgPrev" class="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/10 items-center justify-center text-white hover:bg-violet-600 transition"><i class="fa-solid fa-chevron-left"></i></button>
       <button id="pgNext" class="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/10 items-center justify-center text-white hover:bg-violet-600 transition"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
@@ -512,6 +512,21 @@
     ];
 
     const PROJECTS = [
+      // ── Featured ──
+      {
+        icon: "fa-solid fa-futbol", title: "Turflet", filter: "web",
+        domain: "turflet.in", image: "assets/img/projects/turflet.jpg",
+        desc: "Book football turfs, box cricket, badminton, pickleball and tennis courts nearby. Live slots and prices, split the cost with your squad, join open games and walk in with a QR pass.",
+        tags: [{ l: "Website", c: "t-react" }, { l: "Booking", c: "t-django" }, { l: "Payments", c: "t-mern" }, { l: "QR Pass", c: "t-node" }],
+        links: [{ label: "Visit site", href: "https://www.turflet.in/" }]
+      },
+      {
+        icon: "fa-solid fa-diagram-project", title: "FlowTrace (Task Doctor)", filter: "web",
+        domain: "task-doctor.vercel.app", image: "assets/img/projects/task-doctor.jpg",
+        desc: "A team workspace that tracks every app's flows, screens and issues in one place, with drag-and-drop boards, Excel-style formulas, a writing assistant, Microsoft Teams messaging and WebRTC video calls with hand-gesture effects.",
+        tags: [{ l: "jQuery", c: "t-react" }, { l: "WebRTC", c: "t-node" }, { l: "MediaPipe", c: "t-ai" }, { l: "MS Graph", c: "t-django" }],
+        links: [{ label: "Visit site", href: "https://task-doctor.vercel.app/" }]
+      },
       // ── Client work (from the freelance portfolio) ──
       {
         icon: "fa-solid fa-gem", title: "Asha Jewel", filter: "freelance",
@@ -590,13 +605,6 @@
         ]
       },
       // ── Professional & personal projects ──
-      {
-        icon: "fa-solid fa-diagram-project", title: "FlowTrace (Task Doctor)", filter: "web",
-        domain: "task-doctor.vercel.app", image: "assets/img/projects/task-doctor.jpg",
-        desc: "A team workspace that tracks every app's flows, screens and issues in one place, with drag-and-drop boards, Excel-style formulas, a writing assistant, Microsoft Teams messaging and WebRTC video calls with hand-gesture effects.",
-        tags: [{ l: "jQuery", c: "t-react" }, { l: "WebRTC", c: "t-node" }, { l: "MediaPipe", c: "t-ai" }, { l: "MS Graph", c: "t-django" }],
-        links: [{ label: "Visit site", href: "https://task-doctor.vercel.app/" }]
-      },
       {
         icon: "fa-solid fa-bus", title: "Apnibus Business App", filter: "mobile",
         desc: "Flutter operator app for real-time GPS tracking, ticket booking, seat blocking, FASTag recharge, and fleet financial operations.",
@@ -1014,19 +1022,25 @@
 
         const $vis = $('.proj-card:not(.hidden)');
         const box = pgEl.getBoundingClientRect();
-        let current = 0;
+        const atStart = pgEl.scrollLeft <= 2, atEnd = pgEl.scrollLeft >= max - 2;
+        let current = -1;
         $vis.each(function (k) {
           const r = this.getBoundingClientRect();
-          if (r.left < box.left + box.width / 2) current = k;
-          if (reduceMotion) return;
           const center = r.left + r.width / 2 - box.left;
+          if (current < 0 && center >= 0) current = k;
+          if (reduceMotion) return;
+          // nothing more to reveal on that side → keep the card crisp
+          if ((center < box.width / 2 && atStart) || (center > box.width / 2 && atEnd)) {
+            this.style.scale = '1'; this.style.opacity = '1'; return;
+          }
           // 0 inside the comfortable middle area, rising to 1 at/after the edge
           const edge = Math.min(Math.max(center, 0), box.width);
           const t = Math.min(Math.max((Math.abs(edge - box.width / 2) / (box.width / 2) - 0.55) / 0.45, 0), 1);
           this.style.scale = (1 - t * 0.07).toFixed(3);
           this.style.opacity = (1 - t * 0.45).toFixed(3);
         });
-        $('#pgCount').text(String(Math.min(current + 1, $vis.length)).padStart(2, '0') + ' / ' + String($vis.length).padStart(2, '0'));
+        if (atEnd && max > 0) current = $vis.length - 1;
+        $('#pgCount').text(String(Math.min(Math.max(current, 0) + 1, $vis.length)).padStart(2, '0') + ' / ' + String($vis.length).padStart(2, '0'));
       }
       function requestUpdate() { if (!ticking) { ticking = true; requestAnimationFrame(updateCarousel); } }
       $pg.on('scroll', requestUpdate);
