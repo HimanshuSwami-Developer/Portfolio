@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Himanshu Swami — SDE II</title>
+  <title>Himanshu Swami — Software Developer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -86,6 +86,21 @@
     .marquee-l { animation: marqueeL 32s linear infinite; }
     .marquee-r { animation: marqueeR 38s linear infinite; }
 
+    /* project media: skeleton shimmer */
+    .skel { position: relative; overflow: hidden; background: rgba(255,255,255,0.10); }
+    .skel::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      animation: shimmer 1.8s infinite; }
+    @keyframes shimmer { 100% { transform: translateX(100%); } }
+    .pmedia img.loaded { opacity: 1; }
+    .play-ring { box-shadow: 0 0 0 0 rgba(255,255,255,0.45); animation: ring 2s infinite; }
+    @keyframes ring { 70% { box-shadow: 0 0 0 16px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
+    @media (prefers-reduced-motion: reduce) { .skel::after, .play-ring { animation: none; } }
+    /* projects carousel: staggered entrance */
+    .card-pre { opacity: 0; }
+    .card-in { animation: cardIn .7s cubic-bezier(.22,1,.36,1) backwards; }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(48px) scale(.94); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .card-pre { opacity: 1; } .card-in { animation: none; } }
     .exp-panel { display: none; }
     .exp-panel.active { display: grid; }
   </style>
@@ -125,6 +140,7 @@
       <li><a href="#skills" class="nav-link text-sm font-medium text-slate-400 px-3.5 py-2 rounded-full hover:text-white transition">Skills</a></li>
       <li><a href="#experience" class="nav-link text-sm font-medium text-slate-400 px-3.5 py-2 rounded-full hover:text-white transition">Experience</a></li>
       <li><a href="#projects" class="nav-link text-sm font-medium text-slate-400 px-3.5 py-2 rounded-full hover:text-white transition">Projects</a></li>
+      <li><a href="https://freelancing-portfolio.himanshuswami2810.workers.dev/" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-emerald-300 px-3.5 py-2 rounded-full hover:text-white transition">Freelance <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a></li>
       <li><a href="#education" class="nav-link text-sm font-medium text-slate-400 px-3.5 py-2 rounded-full hover:text-white transition">Education</a></li>
     </ul>
     <a href="#contact" class="hidden sm:inline-flex text-sm font-semibold text-white px-5 py-2 rounded-full bg-violet-600 hover:bg-violet-500 transition">Get in touch</a>
@@ -141,6 +157,7 @@
     <a href="#skills" class="drawer-link text-2xl font-bold text-slate-300 hover:text-violet-400 py-3">Skills</a>
     <a href="#experience" class="drawer-link text-2xl font-bold text-slate-300 hover:text-violet-400 py-3">Experience</a>
     <a href="#projects" class="drawer-link text-2xl font-bold text-slate-300 hover:text-violet-400 py-3">Projects</a>
+    <a href="https://freelancing-portfolio.himanshuswami2810.workers.dev/" target="_blank" rel="noopener noreferrer" class="text-2xl font-bold text-emerald-300 hover:text-white py-3">Freelance</a>
     <a href="#education" class="drawer-link text-2xl font-bold text-slate-300 hover:text-violet-400 py-3">Education</a>
     <a href="#contact" class="drawer-link text-2xl font-bold text-violet-400 py-3">Contact</a>
   </div>
@@ -164,9 +181,8 @@
       </p>
 
       <p class="reveal text-[15px] text-slate-400 leading-[1.8] max-w-xl mb-9">
-        I build backend systems and full-stack products that scale — from <b class="text-white font-semibold">real-time GPS tracking APIs</b> for
-        transport operators to <b class="text-white font-semibold">fintech admin platforms</b> used by thousands daily.
-        Currently at <b class="text-white font-semibold">Findoc</b>, shipping features that matter.
+        I build web, mobile and backend products — from <b class="text-white font-semibold">real-time bus tracking</b> to
+        <b class="text-white font-semibold">fintech partner platforms</b>. Currently a Software Developer at <b class="text-white font-semibold">Findoc</b>.
       </p>
 
       <div class="reveal flex items-center gap-5 mb-12 text-lg text-slate-400">
@@ -185,6 +201,9 @@
         </a>
         <a href="mailto:Himanshuswami2810@gmail.com" class="inline-flex items-center gap-2 bg-white/5 text-slate-300 text-sm font-semibold px-6 py-3 rounded-full border border-white/10 hover:border-violet-500 hover:text-white transition">
           Say Hello
+        </a>
+        <a href="https://freelancing-portfolio.himanshuswami2810.workers.dev/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-emerald-400/10 text-emerald-300 text-sm font-semibold px-6 py-3 rounded-full border border-emerald-400/30 hover:border-emerald-300 hover:text-white transition">
+          <i class="fa-solid fa-briefcase text-xs"></i> Hire me as a Freelancer
         </a>
       </div>
 
@@ -256,27 +275,41 @@
       <button id="pgPrev" class="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/10 items-center justify-center text-white hover:bg-violet-600 transition"><i class="fa-solid fa-chevron-left"></i></button>
       <button id="pgNext" class="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 border border-white/10 items-center justify-center text-white hover:bg-violet-600 transition"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12 mt-6 flex items-center gap-4">
+        <div class="relative flex-1 h-1 rounded-full bg-white/10 overflow-hidden">
+          <div id="pgBar" class="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-400" style="width:20%"></div>
+        </div>
+        <span id="pgCount" class="font-mono text-[11px] text-slate-500 whitespace-nowrap"></span>
+    </div>
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12 mt-12">
+      <a href="https://freelancing-portfolio.himanshuswami2810.workers.dev/" target="_blank" rel="noopener noreferrer" class="reveal group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 rounded-3xl border border-emerald-400/20 bg-emerald-400/[0.04] hover:border-emerald-400/50 p-6 sm:p-8 transition">
+        <div class="flex items-center gap-4">
+          <span class="w-12 h-12 rounded-2xl bg-emerald-400/15 border border-emerald-400/30 flex items-center justify-center text-xl text-emerald-300 flex-shrink-0"><i class="fa-solid fa-briefcase"></i></span>
+          <div>
+            <div class="text-lg font-bold text-white">Available for freelance work</div>
+            <div class="text-sm text-slate-400">Websites, mobile apps, online stores &amp; promo videos for clients in India and the UK — 10 projects shipped, 1M+ installs.</div>
+          </div>
+        </div>
+        <span class="inline-flex items-center gap-2 text-sm font-semibold text-black bg-emerald-300 group-hover:bg-emerald-200 px-5 py-2.5 rounded-full whitespace-nowrap transition">View freelance profile <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></span>
+      </a>
+    </div>
   </section>
 
   <!-- PROJECT MODAL -->
-  <div id="pmodal" class="hidden fixed inset-0 z-[500] items-center justify-center p-5 bg-black/75 backdrop-blur-sm">
-    <div class="relative w-full max-w-3xl max-h-[86vh] overflow-auto rounded-3xl bg-panel border border-white/10 shadow-2xl grid sm:grid-cols-[300px_1fr]">
-      <button id="pmodalClose" class="absolute top-3.5 right-3.5 z-10 w-9 h-9 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:border-violet-500 hover:text-violet-400 hover:rotate-90 transition flex items-center justify-center">
+  <div id="pmodal" class="hidden fixed inset-0 z-[500] items-center justify-center p-4 sm:p-5 bg-black/80 backdrop-blur-sm">
+    <div class="relative w-full max-w-3xl max-h-[90vh] overflow-auto rounded-3xl bg-panel border border-white/10 shadow-2xl">
+      <button id="pmodalClose" class="absolute top-3.5 right-3.5 z-20 w-9 h-9 rounded-full bg-black/60 border border-white/15 text-slate-200 hover:border-violet-500 hover:text-violet-400 hover:rotate-90 transition flex items-center justify-center">
         <i class="fa-solid fa-xmark"></i>
       </button>
-      <div id="pmodalLeft" class="relative flex items-center justify-center p-10 overflow-hidden border-b sm:border-b-0 sm:border-r border-white/10">
-        <div class="dotted-grid absolute inset-0 opacity-40 pointer-events-none"></div>
-        <div id="pmodalGlow" class="absolute inset-0 pointer-events-none"></div>
-        <div class="relative z-10 w-36 h-36 rounded-[28px] bg-white/10 border border-white/15 shadow-lg flex items-center justify-center backdrop-blur">
-          <i id="pmodalIco" class="text-6xl text-white"></i>
+      <div id="pmodalMedia" class="relative border-b border-white/10"></div>
+      <div class="p-7 sm:p-9 flex flex-col gap-4">
+        <div class="flex items-center gap-3 flex-wrap">
+          <div id="pmodalTitle" class="text-2xl font-bold text-white"></div>
+          <span id="pmodalCat" class="font-mono text-[10px] uppercase tracking-wider text-slate-300 bg-white/5 border border-white/10 px-3 py-1 rounded-full whitespace-nowrap"></span>
         </div>
-        <span id="pmodalCat" class="absolute z-10 bottom-5 left-1/2 -translate-x-1/2 font-mono text-[11px] uppercase tracking-wider text-white bg-black/50 border border-white/10 px-3.5 py-1.5 rounded-full whitespace-nowrap"></span>
-      </div>
-      <div class="p-8 sm:p-10 flex flex-col gap-4">
-        <div id="pmodalTitle" class="text-2xl font-bold text-white pr-6"></div>
         <p id="pmodalDesc" class="text-sm text-slate-400 leading-relaxed"></p>
         <div id="pmodalTags" class="flex flex-wrap gap-2"></div>
-        <div id="pmodalLinks" class="flex gap-3 mt-auto pt-3"></div>
+        <div id="pmodalLinks" class="flex flex-wrap gap-3 pt-2"></div>
       </div>
     </div>
   </div>
@@ -337,6 +370,11 @@
             <span class="w-11 h-11 rounded-xl bg-white/20 text-white flex items-center justify-center"><i class="fa-brands fa-github"></i></span>
             <span class="font-mono text-[10px] uppercase tracking-wider text-white/70">GitHub</span>
             <span class="text-[13px] font-semibold text-white">github.com/himanshu</span>
+          </a>
+          <a href="https://freelancing-portfolio.himanshuswami2810.workers.dev/" target="_blank" rel="noopener noreferrer" class="sm:col-span-2 flex flex-col items-center gap-2.5 rounded-2xl bg-white/15 backdrop-blur border border-white/20 p-6 hover:bg-white/25 hover:-translate-y-1 transition">
+            <span class="w-11 h-11 rounded-xl bg-white/20 text-white flex items-center justify-center"><i class="fa-solid fa-briefcase"></i></span>
+            <span class="font-mono text-[10px] uppercase tracking-wider text-white/70">Freelance Profile</span>
+            <span class="text-[13px] font-semibold text-white break-all">freelancing-portfolio.himanshuswami2810.workers.dev</span>
           </a>
         </div>
       </div>
@@ -413,24 +451,30 @@
       ]},
     ];
 
+    const FREELANCE_URL = "https://freelancing-portfolio.himanshuswami2810.workers.dev/";
+
     const EXPERIENCE = [
       {
-        company: "Findoc", role: "Software Developer II · Flutter, React, Django",
+        company: "Findoc", role: "Software Developer · Flutter, React, Node.js, Django",
         period: "Mar 2026 – Present", current: true,
         gradient: "from-fuchsia-600 via-purple-600 to-sky-600",
-        tagline: "Fintech admin platforms, IPO tracking & onboarding workflows for thousands of users.",
+        logo: "assets/img/companies/findoc.svg", site: "https://www.findoc.com/",
+        tagline: "FinDost partner platform — IPOs, mutual funds, payouts & live dashboards for AP and DRA partners.",
         points: [
-          "Developing and maintaining <b>admin portals</b>, internal apps, and the Findoc client platform using React, Flutter, and Django.",
-          "Built <b>onboarding workflows</b>, analytics dashboards, and role-based management for clients, Admin, AP, and DRA users.",
-          "Developed modules for videos, blogs, events, webinars, and customer engagement activities.",
-          "Created <b>IPO platforms</b> with status tracking, market pre-pulse insights, and investment information.",
-          "Built <b>MTF Excel-to-database</b> upload systems and automation tools for operational workflows.",
+          "Building <b>FinDost</b>, a partner platform for AP and DRA partners, with React, Flutter and Node.js.",
+          "Built role-based <b>dashboards and reports</b> with revenue charts and Excel export.",
+          "Shipped the <b>IPO module</b>: listings, bulk apply for clients and order tracking.",
+          "Developed <b>mutual fund</b> orders, SIPs and <b>UPI AutoPay</b> mandates.",
+          "Built <b>payout management</b> and a partner rank and tier system.",
+          "Automated <b>notifications</b> via Firebase push, WhatsApp and email.",
+          "Built a Django <b>MTF Excel-to-database</b> back-office tool.",
         ]
       },
       {
         company: "Apnibus", role: "Software Developer · Flutter, Django",
         period: "Nov 2024 – Mar 2026", current: false,
         gradient: "from-orange-500 via-amber-500 to-rose-500",
+        logo: "assets/img/companies/apnibus.png", site: "https://apnibus.com/",
         tagline: "Real-time GPS tracking & fleet management for transport operators.",
         points: [
           "Developed the <b>Apnibus Business App</b> using Flutter (BLoC, GoRouter) for GPS tracking, ticket booking, seat blocking.",
@@ -444,6 +488,7 @@
         company: "Freelancing", role: "Software Developer · Full-Stack",
         period: "Jan 2024 – Nov 2024", current: false,
         gradient: "from-slate-700 via-slate-600 to-blue-700",
+        logo: "assets/img/companies/freelance.png", sticker: true, site: FREELANCE_URL,
         tagline: "Face-recognition LMS, AI chatbots & PDF visualization tools for clients.",
         points: [
           "Designed and prototyped UI/UX workflows in <b>Figma</b> for multiple client-facing projects.",
@@ -455,8 +500,8 @@
       },
     ];
 
-    const FILTER_COLOR = { mobile: "#38bdf8", web: "#a78bfa", ai: "#f472b6" };
-    const FILTER_LABEL = { mobile: "Mobile App", web: "Web Platform", ai: "AI / ML" };
+    const FILTER_COLOR = { freelance: "#34d399", mobile: "#38bdf8", web: "#a78bfa", ai: "#f472b6" };
+    const FILTER_LABEL = { freelance: "Client Work", mobile: "Mobile App", web: "Web Platform", ai: "AI / ML" };
     const CARD_GRADIENT = [
       "from-rose-600 via-fuchsia-600 to-indigo-600",
       "from-orange-500 via-amber-500 to-yellow-500",
@@ -467,41 +512,126 @@
     ];
 
     const PROJECTS = [
+      // ── Client work (from the freelance portfolio) ──
+      {
+        icon: "fa-solid fa-gem", title: "Asha Jewel", filter: "freelance",
+        domain: "muddy-hat-540d.workers.dev", image: "assets/img/projects/asha-jewel.jpg",
+        desc: "A virtual jewellery showroom: browse showcases, drag pieces into your collection and order at the counter via WhatsApp.",
+        tags: [{ l: "Website", c: "t-react" }, { l: "E-commerce", c: "t-mern" }, { l: "Jewellery", c: "t-node" }],
+        links: [{ label: "Visit site", href: "https://muddy-hat-540d.himanshuswami2810.workers.dev/" }]
+      },
+      {
+        icon: "fa-solid fa-mug-hot", title: "Spark Cafe", filter: "freelance",
+        domain: "bold-tooth-bb5d.workers.dev", image: "assets/img/projects/spark-cafe.jpg",
+        video: "assets/video/spark-cafe.mp4", poster: "assets/video/spark-cafe.jpg", duration: "0:30",
+        desc: "A neighbourhood café site with an interactive menu, counter checkout and orders sent straight to WhatsApp, plus a live order-status board.",
+        tags: [{ l: "Website", c: "t-react" }, { l: "Café Ordering", c: "t-node" }],
+        links: [{ label: "Visit site", href: "https://bold-tooth-bb5d.himanshuswami2810.workers.dev/" }]
+      },
+      {
+        icon: "fa-solid fa-shirt", title: "Cleanz24", filter: "freelance",
+        domain: "tiny-sun-770e.workers.dev", image: "assets/img/projects/cleanz24.jpg",
+        desc: "Dry cleaning & laundry with free pickup and 24-hour delivery, a price estimator, pickup booking form and WhatsApp booking.",
+        tags: [{ l: "Website", c: "t-react" }, { l: "Booking", c: "t-django" }],
+        links: [{ label: "Visit site", href: "https://tiny-sun-770e.himanshuswami2810.workers.dev/#book" }]
+      },
+      {
+        icon: "fa-solid fa-cookie-bite", title: "Cup2Eat", filter: "freelance",
+        domain: "bold-dew-1e09.workers.dev", image: "assets/img/projects/cup2eat.jpg",
+        video: "assets/video/cup2eat.mp4", poster: "assets/video/cup2eat.jpg", duration: "0:30",
+        desc: "A product site for edible chocolate-coated cups, with retail and bulk packs and wholesale enquiries.",
+        tags: [{ l: "Website", c: "t-react" }, { l: "E-commerce", c: "t-mern" }],
+        links: [{ label: "Visit site", href: "https://bold-dew-1e09.himanshuswami2810.workers.dev/" }]
+      },
+      {
+        icon: "fa-solid fa-basket-shopping", title: "Aapno Bazar", filter: "freelance",
+        domain: "Google Play",
+        video: "assets/video/aapno-bazar.mp4", poster: "assets/video/aapno-bazar.jpg", duration: "1:38",
+        desc: "Android grocery delivery app: order groceries with delivery slots, live order tracking, coupons and UPI or cash on delivery.",
+        tags: [{ l: "Android App", c: "t-flutter" }, { l: "E-commerce", c: "t-mern" }, { l: "UPI", c: "t-django" }],
+        links: [{ label: "Play Store", href: "https://play.google.com/store/apps/details?id=com.aapnobazar.app" }]
+      },
+      {
+        icon: "fa-solid fa-gift", title: "Janjé", filter: "freelance",
+        domain: "janje-site.vercel.app", image: "assets/img/projects/janje.jpg",
+        desc: "A D2C store for bouquets and hair accessories with cart, wishlist and order tracking.",
+        tags: [{ l: "Website", c: "t-react" }, { l: "E-commerce", c: "t-mern" }],
+        links: [{ label: "Visit site", href: "https://janje-site.vercel.app/" }]
+      },
+      {
+        icon: "fa-solid fa-building", title: "DD Associates", filter: "freelance",
+        domain: "ddassociate.in", image: "assets/img/projects/dd-associates.jpg",
+        desc: "An elegant showcase for luxury real estate, architecture and interiors with a property enquiry flow.",
+        tags: [{ l: "Website", c: "t-react" }, { l: "Real Estate", c: "t-node" }],
+        links: [{ label: "Visit site", href: "https://ddassociate.in/" }]
+      },
+      {
+        icon: "fa-solid fa-shield-halved", title: "G Security & Training", filter: "freelance",
+        domain: "gsecurityandtraining.co.uk", image: "assets/img/projects/g-security.jpg",
+        desc: "Course booking for a Leeds-based (UK) SIA training provider, with pay-later checkout.",
+        tags: [{ l: "Website", c: "t-react" }, { l: "UK Client", c: "t-ai" }, { l: "Booking", c: "t-django" }],
+        links: [{ label: "Visit site", href: "https://gsecurityandtraining.co.uk/" }]
+      },
+      {
+        icon: "fa-solid fa-ring", title: "Aushmika Jewels", filter: "freelance",
+        domain: "aushmikajewels.com", image: "assets/img/projects/aushmika-jewels.jpg",
+        desc: "A jewellery store with shopping by category and material, best sellers and secure checkout.",
+        tags: [{ l: "Website", c: "t-react" }, { l: "E-commerce", c: "t-mern" }],
+        links: [{ label: "Visit site", href: "https://www.aushmikajewels.com/" }]
+      },
+      {
+        icon: "fa-solid fa-ticket", title: "ApniBus", filter: "freelance",
+        domain: "apnibus.com", image: "assets/img/projects/apnibus.jpg",
+        desc: "Bus ticket booking with live tracking and seat selection — 1M+ downloads on Google Play.",
+        tags: [{ l: "App + Web", c: "t-flutter" }, { l: "1M+ Downloads", c: "t-ai" }],
+        links: [
+          { label: "Play Store", href: "https://play.google.com/store/apps/details?id=com.app.apnibus" },
+          { label: "Website", href: "https://apnibus.com/" }
+        ]
+      },
+      // ── Professional & personal projects ──
+      {
+        icon: "fa-solid fa-diagram-project", title: "FlowTrace (Task Doctor)", filter: "web",
+        domain: "task-doctor.vercel.app", image: "assets/img/projects/task-doctor.jpg",
+        desc: "A team workspace that tracks every app's flows, screens and issues in one place, with drag-and-drop boards, Excel-style formulas, a writing assistant, Microsoft Teams messaging and WebRTC video calls with hand-gesture effects.",
+        tags: [{ l: "jQuery", c: "t-react" }, { l: "WebRTC", c: "t-node" }, { l: "MediaPipe", c: "t-ai" }, { l: "MS Graph", c: "t-django" }],
+        links: [{ label: "Visit site", href: "https://task-doctor.vercel.app/" }]
+      },
       {
         icon: "fa-solid fa-bus", title: "Apnibus Business App", filter: "mobile",
         desc: "Flutter operator app for real-time GPS tracking, ticket booking, seat blocking, FASTag recharge, and fleet financial operations.",
         tags: [{ l: "Flutter", c: "t-flutter" }, { l: "BLoC", c: "t-flutter" }, { l: "Django", c: "t-django" }, { l: "PostgreSQL", c: "t-django" }],
-        gh: "#", lv: "#"
+        links: []
       },
       {
         icon: "fa-solid fa-chart-line", title: "Findoc Admin Portal", filter: "web",
         desc: "Full-featured fintech admin portal with onboarding workflows, analytics dashboards, and role-based access for Admin, AP, DRA, and client users.",
         tags: [{ l: "React", c: "t-react" }, { l: "Django", c: "t-django" }, { l: "Flutter", c: "t-flutter" }],
-        gh: "#", lv: "#"
+        links: []
       },
       {
         icon: "fa-solid fa-file-lines", title: "Perception — PDF Visualizer", filter: "web",
         desc: "Interactive document processing app for visualizing, annotating, and extracting structured data from PDFs with a modern, fast interface.",
         tags: [{ l: "React", c: "t-react" }, { l: "Node.js", c: "t-node" }, { l: "Flask", c: "t-django" }],
-        gh: "#", lv: "#"
+        links: []
       },
       {
         icon: "fa-solid fa-graduation-cap", title: "Facenet College LMS", filter: "ai",
         desc: "Learning management system with face recognition student auth, course management, attendance tracking, and role-based access control.",
         tags: [{ l: "MERN", c: "t-mern" }, { l: "Flask", c: "t-django" }, { l: "AI/ML", c: "t-ai" }],
-        gh: "#", lv: "#"
+        links: []
       },
       {
         icon: "fa-solid fa-robot", title: "Personality AI Chatbot", filter: "ai",
         desc: "Adaptive conversational AI that adjusts its personality and style based on user interaction patterns using NLP and contextual memory.",
         tags: [{ l: "Python", c: "t-django" }, { l: "NLP", c: "t-ai" }, { l: "React", c: "t-react" }],
-        gh: "#", lv: "#"
+        links: []
       },
       {
         icon: "fa-solid fa-book-open", title: "Library Management System", filter: "web",
         desc: "Comprehensive library system with role-based access for admins, librarians, and students. Features search, issue/return tracking, and fine management.",
         tags: [{ l: "React", c: "t-react" }, { l: "Node.js", c: "t-node" }, { l: "MongoDB", c: "t-mern" }],
-        gh: "#", lv: "#"
+        links: []
       },
     ];
 
@@ -516,6 +646,67 @@
 
     const MARQUEE_1 = ["Backend Architecture", "API Design", "Problem Solving", "Database Optimization", "System Design", "Team Collaboration"];
     const MARQUEE_2 = ["Python Development", "Java Spring Boot", "Flutter Engineering", "Agile Delivery", "Cloud Deployment", "Clean Code"];
+
+    // Builds the preview for a project: promo video, website screenshot, or skeleton mockup.
+    // inModal = true plays the video inline with controls.
+    function projectMedia(p, i, inModal) {
+      const grad = CARD_GRADIENT[i % CARD_GRADIENT.length];
+      const $wrap = $('<div>', { class: 'pmedia relative w-full aspect-[16/10] overflow-hidden bg-gradient-to-br ' + grad });
+
+      if (p.video && inModal) {
+        $wrap.removeClass('aspect-[16/10]').addClass('aspect-video bg-black');
+        $('<video>', { src: p.video, poster: p.poster, controls: true, autoplay: true, playsinline: true, preload: 'metadata', class: 'w-full h-full object-contain bg-black' }).appendTo($wrap);
+        return $wrap;
+      }
+
+      // skeleton mockup — also sits underneath images while they load
+      const $sk = $('<div>', { class: 'absolute inset-0 flex flex-col' });
+      $(`<div class="h-7 flex items-center gap-1.5 px-3 bg-black/35">
+           <span class="w-2 h-2 rounded-full bg-white/40"></span><span class="w-2 h-2 rounded-full bg-white/30"></span><span class="w-2 h-2 rounded-full bg-white/20"></span>
+           <span class="ml-2 flex-1 max-w-[60%] h-3.5 rounded-full bg-black/25 font-mono text-[9px] leading-[14px] text-white/70 px-2 truncate">${p.domain || ''}</span>
+         </div>`).appendTo($sk);
+      $(`<div class="sk-body relative flex-1 p-5 flex gap-4">
+           <div class="flex-1 flex flex-col gap-2.5 pt-2">
+             <div class="skel h-3 w-1/3 rounded-full"></div>
+             <div class="skel h-5 w-11/12 rounded-md"></div>
+             <div class="skel h-5 w-3/4 rounded-md"></div>
+             <div class="skel h-2.5 w-full rounded-full mt-1"></div>
+             <div class="skel h-2.5 w-5/6 rounded-full"></div>
+             <div class="flex gap-2 mt-2"><div class="skel h-6 w-20 rounded-full"></div><div class="skel h-6 w-14 rounded-full"></div></div>
+           </div>
+           <div class="skel w-[38%] rounded-2xl flex items-center justify-center"><i class="${p.icon} relative z-10 text-4xl text-white/70"></i></div>
+         </div>`).appendTo($sk);
+      $wrap.append($sk);
+
+      const shot = p.video ? p.poster : p.image;
+      if (shot) {
+        const $img = $('<img>', { src: shot, alt: p.title + ' preview', loading: 'lazy', decoding: 'async',
+          class: 'absolute left-0 right-0 bottom-0 ' + (p.video ? 'top-0' : 'top-7') + ' w-full object-cover object-top opacity-0 transition-all duration-500 group-hover:scale-[1.03]' })
+          .css('height', p.video ? '100%' : 'calc(100% - 1.75rem)')
+          .on('load', function () { $(this).addClass('loaded'); (p.video ? $sk : $sk.find('.sk-body')).fadeOut(300, function () { $(this).remove(); }); })
+          .on('error', function () { $(this).remove(); });
+        $wrap.append($img);
+        if ($img[0].complete && $img[0].naturalWidth) $img.trigger('load');
+      } else if (inModal) {
+        $wrap.removeClass('aspect-[16/10]').addClass('aspect-[16/8]');
+      }
+
+      if (p.video) {
+        $wrap.append('<div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none"></div>');
+        $(`<button type="button" aria-label="Play ${p.title} promo video" class="absolute inset-0 flex items-center justify-center">
+             <span class="play-ring w-14 h-14 rounded-full bg-white/90 text-black flex items-center justify-center group-hover:scale-110 transition"><i class="fa-solid fa-play ml-0.5"></i></span>
+           </button>`).on('click', e => { e.stopPropagation(); openProjectModal(i); }).appendTo($wrap);
+        $(`<span class="absolute bottom-3 left-3 font-mono text-[10px] text-white bg-black/60 px-2 py-0.5 rounded-md"><i class="fa-solid fa-video mr-1"></i>Promo · ${p.duration || ''}</span>`).appendTo($wrap);
+      }
+      if (p.filter === 'freelance' && !inModal) {
+        $('<span>', { class: 'absolute top-9 right-3 font-mono text-[9px] uppercase tracking-wider text-black bg-emerald-300 px-2 py-0.5 rounded-md', text: 'Client' }).appendTo($wrap);
+      }
+      return $wrap;
+    }
+
+    function linkIcon(lk) {
+      return /play store/i.test(lk.label) ? 'fa-brands fa-google-play' : 'fa-solid fa-arrow-up-right-from-square';
+    }
 
     function hexToRgba(hex, a) {
       const n = parseInt(hex.slice(1), 16);
@@ -688,14 +879,18 @@
       });
 
       // ── RENDER EXPERIENCE (tabs + panel) ───────────────────────────────────────
+      // Full class strings so the active pill never keeps a hover:text-white (sticky on touch screens → white on white)
+      const ETAB_BASE = 'etab text-sm font-semibold px-5 py-2.5 rounded-full border transition ';
+      const ETAB_ON = 'bg-white text-black border-white';
+      const ETAB_OFF = 'bg-white/5 text-slate-400 border-white/10 hover:text-white hover:border-white/30';
       const $etabs = $('#etabs'), $epanels = $('#epanels');
       EXPERIENCE.forEach((ex, i) => {
         $('<button>', {
-          class: 'etab text-sm font-semibold px-5 py-2.5 rounded-full transition ' + (i === 0 ? 'bg-white text-black' : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'),
+          class: ETAB_BASE + (i === 0 ? ETAB_ON : ETAB_OFF),
           text: ex.company, 'data-i': i
         }).on('click', function () {
-          $('.etab').removeClass('bg-white text-black').addClass('bg-white/5 text-slate-400 border border-white/10');
-          $(this).addClass('bg-white text-black').removeClass('bg-white/5 text-slate-400 border border-white/10');
+          $('.etab').attr('class', ETAB_BASE + ETAB_OFF);
+          $(this).attr('class', ETAB_BASE + ETAB_ON);
           $('.exp-panel').removeClass('active').addClass('hidden');
           $(`.exp-panel[data-i="${i}"]`).addClass('active').removeClass('hidden');
         }).appendTo($etabs);
@@ -715,24 +910,36 @@
             .appendTo($ul);
         });
         $left.append($ul);
-        const $right = $('<div>', { class: `rounded-2xl bg-gradient-to-br ${ex.gradient} p-6 flex items-end min-h-[180px] md:min-h-full text-white font-semibold text-sm leading-snug` })
-          .append(`<span>${ex.tagline}</span>`);
+        const $right = $('<div>', { class: `relative overflow-hidden rounded-2xl bg-gradient-to-br ${ex.gradient} p-6 flex flex-col justify-between gap-6 min-h-[220px] md:min-h-full text-white font-semibold text-sm leading-snug` });
+        $right.append('<div class="absolute inset-0 dotted-grid opacity-20 pointer-events-none"></div>');
+        if (ex.logo) {
+          const $logo = $('<a>', { href: ex.site || '#', target: '_blank', rel: 'noopener noreferrer', title: ex.company, class: 'relative self-start hover:scale-105 transition' });
+          if (ex.sticker) {
+            $logo.addClass('self-center').append($('<img>', { src: ex.logo, alt: ex.company, class: 'h-36 w-auto drop-shadow-[0_10px_20px_rgba(0,0,0,0.45)]', loading: 'lazy' }));
+          } else {
+            $logo.addClass('bg-white rounded-2xl px-5 py-4 shadow-lg shadow-black/20')
+              .append($('<img>', { src: ex.logo, alt: ex.company + ' logo', class: 'h-8 w-auto max-w-[180px] object-contain', loading: 'lazy' }));
+          }
+          $right.append($logo);
+        }
+        $right.append(`<span class="relative">${ex.tagline}</span>`);
         $panel.append($left).append($right);
         $epanels.append($panel);
       });
 
       // ── RENDER PROJECTS ────────────────────────────────────────────────────────
       const $pf = $('#pf'), $pg = $('#pg');
-      const filters = ['all', 'mobile', 'web', 'ai'];
+      const FLT_BASE = 'flt text-xs font-semibold uppercase tracking-wide px-4 py-2 rounded-full border transition ';
+      const FLT_OFF = 'border-white/10 text-slate-400 hover:text-white hover:border-white/30';
+      const filters = ['all', 'freelance', 'mobile', 'web', 'ai'];
       filters.forEach(f => {
         $('<button>', {
-          class: 'flt text-xs font-semibold uppercase tracking-wide px-4 py-2 rounded-full border transition ' +
-            (f === 'all' ? 'bg-white text-black border-white' : 'border-white/10 text-slate-400 hover:text-white hover:border-white/30'),
-          text: f === 'all' ? 'All Projects' : f.charAt(0).toUpperCase() + f.slice(1),
+          class: FLT_BASE + (f === 'all' ? ETAB_ON : FLT_OFF),
+          text: f === 'all' ? 'All Projects' : f === 'freelance' ? 'Client Work' : f.charAt(0).toUpperCase() + f.slice(1),
           'data-f': f
         }).on('click', function () {
-          $('.flt').removeClass('bg-white text-black border-white').addClass('border-white/10 text-slate-400');
-          $(this).removeClass('border-white/10 text-slate-400').addClass('bg-white text-black border-white');
+          $('.flt').attr('class', FLT_BASE + FLT_OFF);
+          $(this).attr('class', FLT_BASE + ETAB_ON);
           $('.proj-card').each(function () {
             $(this).toggleClass('hidden', f !== 'all' && $(this).data('f') !== f);
           });
@@ -742,28 +949,28 @@
       PROJECTS.forEach((p, i) => {
         const grad = CARD_GRADIENT[i % CARD_GRADIENT.length];
         const $card = $('<div>', {
-          class: `proj-card snap-start flex-shrink-0 w-[300px] sm:w-[380px] h-[400px] rounded-3xl p-7 flex flex-col justify-between relative overflow-hidden cursor-pointer bg-gradient-to-br ${grad} hover:-translate-y-1 transition`,
+          class: 'proj-card card-pre group snap-start flex-shrink-0 w-[300px] sm:w-[380px] rounded-3xl overflow-hidden cursor-pointer flex flex-col bg-white/[0.03] border border-white/10 hover:border-violet-500/50 hover:-translate-y-1 transition',
           'data-f': p.filter, 'data-idx': i
         });
-        $('<div>', { class: 'absolute inset-0 opacity-[0.15] dotted-grid' }).appendTo($card);
-        $(`<i class="${p.icon} absolute -right-4 -bottom-4 text-[140px] text-white/10"></i>`).appendTo($card);
-        const $top = $('<div>', { class: 'relative flex items-start justify-between' });
-        $('<div>', { class: 'text-xl font-extrabold text-white max-w-[70%] leading-snug', text: p.title }).appendTo($top);
-        const $links = $('<div>', { class: 'flex gap-1.5' });
-        $('<a>', { href: p.gh, class: 'w-8 h-8 rounded-lg bg-black/30 backdrop-blur flex items-center justify-center text-white/80 hover:bg-black/50 transition text-xs', title: 'GitHub' })
-          .append('<i class="fa-brands fa-github"></i>').on('click', e => e.stopPropagation()).appendTo($links);
-        $('<a>', { href: p.lv, class: 'w-8 h-8 rounded-lg bg-black/30 backdrop-blur flex items-center justify-center text-white/80 hover:bg-black/50 transition text-xs', title: 'Live' })
-          .append('<i class="fa-solid fa-arrow-up-right-from-square"></i>').on('click', e => e.stopPropagation()).appendTo($links);
-        $top.append($links);
-        $card.append($top);
-        const $bottom = $('<div>', { class: 'relative flex flex-col gap-3' });
-        $('<div>', { class: 'text-[13px] text-white/85 leading-relaxed', text: p.desc }).appendTo($bottom);
-        const $tags = $('<div>', { class: 'flex flex-wrap gap-1.5' });
-        p.tags.forEach(t => {
-          $('<span>', { class: 'ptag cursor-pointer select-none font-mono text-[10px] px-2.5 py-1 rounded-full tracking-wide bg-white/15 text-white border border-white/20 backdrop-blur', text: t.l }).appendTo($tags);
+        $card.append(projectMedia(p, i, false));
+
+        const $body = $('<div>', { class: 'relative flex-1 flex flex-col gap-3 p-6' });
+        const $top = $('<div>', { class: 'flex items-start justify-between gap-3' });
+        $('<div>', { class: 'text-lg font-extrabold text-white leading-snug', text: p.title }).appendTo($top);
+        const $links = $('<div>', { class: 'flex gap-1.5 flex-shrink-0' });
+        p.links.forEach(lk => {
+          $('<a>', { href: lk.href, target: '_blank', rel: 'noopener noreferrer', class: 'w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-violet-600 hover:border-violet-600 transition text-xs', title: lk.label })
+            .append(`<i class="${linkIcon(lk)}"></i>`).on('click', e => e.stopPropagation()).appendTo($links);
         });
-        $bottom.append($tags);
-        $card.append($bottom);
+        $top.append($links);
+        $body.append($top);
+        $('<div>', { class: 'text-[13px] text-slate-400 leading-relaxed line-clamp-3', text: p.desc }).appendTo($body);
+        const $tags = $('<div>', { class: 'flex flex-wrap gap-1.5 mt-auto pt-1' });
+        p.tags.forEach(t => {
+          $('<span>', { class: 'ptag cursor-pointer select-none font-mono text-[10px] px-2.5 py-1 rounded-full tracking-wide ' + TAG_STYLE[t.c], text: t.l }).appendTo($tags);
+        });
+        $body.append($tags);
+        $card.append($body);
         $card.on('click', () => openProjectModal(i));
         $pg.append($card);
       });
@@ -771,26 +978,92 @@
       $('#pgPrev').on('click', () => $pg.animate({ scrollLeft: '-=380' }, 350));
       $('#pgNext').on('click', () => $pg.animate({ scrollLeft: '+=380' }, 350));
 
+      // ── CAROUSEL SCROLL EFFECTS ────────────────────────────────────────────────
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const pgEl = $pg[0];
+
+      // 1. staggered entrance — plays when the carousel scrolls into view and after each filter change
+      function playEntrance() {
+        const $vis = $('.proj-card:not(.hidden)');
+        $vis.removeClass('card-in');
+        void pgEl.offsetWidth; // restart animation
+        $vis.each(function (k) {
+          this.style.animationDelay = Math.min(k, 5) * 90 + 'ms';
+          $(this).removeClass('card-pre').addClass('card-in');
+        });
+      }
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entries, obs) => {
+          if (entries[0].isIntersecting) { playEntrance(); obs.disconnect(); }
+        }, { threshold: 0.2 }).observe(pgEl);
+      } else {
+        $('.proj-card').removeClass('card-pre');
+      }
+      $(document).on('click', '.flt', () => { pgEl.scrollLeft = 0; playEntrance(); updateCarousel(); });
+
+      // 2. depth — cards shrink/fade slightly as they move toward the edges
+      // 3. progress bar + counter
+      let ticking = false;
+      function updateCarousel() {
+        ticking = false;
+        const max = pgEl.scrollWidth - pgEl.clientWidth;
+        const frac = max > 0 ? pgEl.scrollLeft / max : 1;
+        const view = pgEl.scrollWidth ? pgEl.clientWidth / pgEl.scrollWidth : 1;
+        const w = Math.max(view * 100, 12);
+        $('#pgBar').css({ width: w + '%', left: frac * (100 - w) + '%' });
+
+        const $vis = $('.proj-card:not(.hidden)');
+        const box = pgEl.getBoundingClientRect();
+        let current = 0;
+        $vis.each(function (k) {
+          const r = this.getBoundingClientRect();
+          if (r.left < box.left + box.width / 2) current = k;
+          if (reduceMotion) return;
+          const center = r.left + r.width / 2 - box.left;
+          // 0 inside the comfortable middle area, rising to 1 at/after the edge
+          const edge = Math.min(Math.max(center, 0), box.width);
+          const t = Math.min(Math.max((Math.abs(edge - box.width / 2) / (box.width / 2) - 0.55) / 0.45, 0), 1);
+          this.style.scale = (1 - t * 0.07).toFixed(3);
+          this.style.opacity = (1 - t * 0.45).toFixed(3);
+        });
+        $('#pgCount').text(String(Math.min(current + 1, $vis.length)).padStart(2, '0') + ' / ' + String($vis.length).padStart(2, '0'));
+      }
+      function requestUpdate() { if (!ticking) { ticking = true; requestAnimationFrame(updateCarousel); } }
+      $pg.on('scroll', requestUpdate);
+      $(window).on('resize', requestUpdate);
+      updateCarousel();
+      setTimeout(updateCarousel, 400);
+
       // ── PROJECT MODAL ──────────────────────────────────────────────────────────
       const $pmodal = $('#pmodal');
       window.openProjectModal = function (i) {
         const p = PROJECTS[i];
-        $('#pmodalIco').attr('class', p.icon + ' text-6xl text-white');
+        $('#pmodalMedia').empty().append(projectMedia(p, i, true));
         $('#pmodalCat').text(FILTER_LABEL[p.filter] || p.filter);
-        $('#pmodalGlow').css('background', `radial-gradient(circle at 50% 30%, ${hexToRgba(FILTER_COLOR[p.filter], 0.35)}, transparent 68%)`);
         $('#pmodalTitle').text(p.title);
         $('#pmodalDesc').text(p.desc);
         $('#pmodalTags').empty();
         p.tags.forEach(t => {
           $('<span>', { class: 'ptag cursor-pointer select-none font-mono text-[10px] px-2.5 py-1 rounded-full tracking-wide ' + TAG_STYLE[t.c], text: t.l }).appendTo('#pmodalTags');
         });
-        $('#pmodalLinks').empty()
-          .append(`<a href="${p.lv}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold px-5 py-2.5 rounded-full bg-violet-600 hover:bg-violet-500 text-white transition">Live Demo</a>`)
-          .append(`<a href="${p.gh}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-bold px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:border-violet-500 hover:text-white transition">Source Code</a>`);
+        const $ml = $('#pmodalLinks').empty();
+        p.links.forEach((lk, k) => {
+          $('<a>', {
+            href: lk.href, target: '_blank', rel: 'noopener noreferrer',
+            class: 'inline-flex items-center gap-2 text-xs font-bold px-5 py-2.5 rounded-full transition ' +
+              (k === 0 ? 'bg-violet-600 hover:bg-violet-500 text-white' : 'bg-white/5 border border-white/10 text-slate-300 hover:border-violet-500 hover:text-white')
+          }).append(`<i class="${linkIcon(lk)}"></i>`).append(document.createTextNode(lk.label)).appendTo($ml);
+        });
+        if (p.filter === 'freelance') {
+          $('<a>', { href: FREELANCE_URL, target: '_blank', rel: 'noopener noreferrer',
+            class: 'inline-flex items-center gap-2 text-xs font-bold px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:border-emerald-400 hover:text-white transition'
+          }).append('<i class="fa-solid fa-briefcase"></i>').append(document.createTextNode('Freelance profile')).appendTo($ml);
+        }
         $pmodal.removeClass('hidden').addClass('flex');
         $('body').css('overflow', 'hidden');
       };
       function closeProjectModal() {
+        $('#pmodalMedia video').each(function () { this.pause(); });
         $pmodal.addClass('hidden').removeClass('flex');
         $('body').css('overflow', '');
       }
@@ -858,7 +1131,7 @@
       $('.reveal').each(function () { rio.observe(this); });
 
       // ── TYPEWRITER (role) ──────────────────────────────────────────────────────
-      const roles = ['A pragmatic Backend Developer', 'A Python Backend Engineer', 'A Java Spring Boot Developer', 'A Django Backend Dev', 'A Full-Stack Builder', 'SDE II @ Findoc'];
+      const roles = ['A Full-Stack Developer', 'A Flutter App Developer', 'A React & Node.js Developer', 'A Django Backend Dev', 'Software Developer @ Findoc'];
       let ri = 0, ci = 0, del = false;
       const $tw = $('#tw');
       function typeRole() {
